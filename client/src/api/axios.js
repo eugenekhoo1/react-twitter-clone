@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "http://react-twitter-clone-server.onrender.com";
+const BASE_URL = "https://react-twitter-clone-server.onrender.com";
 
 export default axios.create({
   baseURL: BASE_URL,
