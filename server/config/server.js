@@ -1,3 +1,3 @@
 require("dotenv").config();
 
-module.exports = { PORT: process.env.DB_PORT || 5000 };
+module.exports = { PORT: 5432 };
