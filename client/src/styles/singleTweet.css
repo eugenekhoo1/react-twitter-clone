@@ -1,0 +1,131 @@
+.single-tweet {
+    position: relative;
+    max-width: 700px;
+    height: 100vh;
+    border: 1px solid var(--accent);
+	@media (max-width: 1200px) {
+		width: 58.33333%;
+		min-width: 500px;
+	}
+}
+
+.single-tweet-header {
+    display: grid;
+	grid-template-columns: 0.5fr 1fr 9fr;
+	border-bottom: 1px var(--accent);
+}
+
+.single-tweet-title {
+    margin-bottom: 0px;
+	margin-top: 5px;
+}
+
+.back-arrow {
+    margin: 10px;
+	color: var(--main-color);
+	margin-top: 10;
+}
+
+.back-arrow:hover {
+    cursor: pointer;
+}
+
+.single-tweet-container {
+    padding-top: 10px;
+    margin-right: 15px;
+    margin-left: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--accent);
+}
+
+.single-tweet-nameplate {
+	display: flex;
+	margin-bottom: 0px;
+	margin-left: 0px;
+}
+
+.single-name {
+    margin-top: 6px;
+	margin-left: 15px;
+	margin-bottom: 0px;
+	font-weight: 600;
+	font-size: 17px;
+}
+
+.single-tweet-text {
+	margin-top: 15px;
+    
+}
+
+.single-tweet-date {
+    color: rgba(61, 58, 58, 0.681);
+	font-size: 13px;
+
+}
+
+.single-retweet {
+	font-size: 13px;
+	color: rgb(81, 76, 76);
+	margin-bottom: 0px;
+	margin-left: 35px;
+	padding-bottom: 3px;
+}
+
+
+.single-retweet-name:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.interaction-counter {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 1.5fr 5fr;
+}
+
+.interaction-counter-count {
+    color: black !important;
+    font-weight: 600;
+}
+
+.interaction-counter span {
+    font-size: 13px;
+    color: rgba(61, 58, 58, 0.681);
+}
+
+.single-tweet-interaction {
+    display: grid;
+	grid-template-columns: 3fr 3fr 3fr;
+    margin-left: 10px;
+    margin-right: 10px;
+    place-items: center;
+    
+}
+
+.single-tweet-interaction span:hover {
+    cursor: pointer;
+}
+
+.single-tweet-reply-container {
+    display: flex;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.single-tweet-reply-textarea {
+    font-size: 15px;
+    max-width: 500px;
+    margin-left: 15px;
+    resize: none;
+    min-height: 60px;
+}
+
+.single-tweet-reply-button {
+    align-self: center;
+    padding: 10px 15px 10px 15px;
+    margin-left:auto;
+    font-size: 13px;
+}
+
+h3 {
+	padding-top: 4px;
+}

@@ -1,0 +1,25 @@
+.tweet-button {
+  margin-top: 30px;
+  background-color: rgb(238, 85, 85);
+  width: auto;
+  max-width: 200px;
+  @media (max-width: 1200px) {
+    border-radius: 50%;
+  }
+}
+
+.tweet-text {
+    padding: 15px 10%;
+    display: inline-block;
+    @media (max-width: 1200px) {
+        display: none;
+    }
+}
+
+.tweet-icon{
+    @media (min-width: 1200px) {
+        display: none
+    }
+}
+
+

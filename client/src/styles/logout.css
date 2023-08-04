@@ -1,0 +1,43 @@
+.logout {
+    position: fixed;
+    bottom: 0;
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 40px;
+    margin-bottom: 10px;
+    width: 15vw;
+  }
+
+.logout:hover {
+  background: var(--button-hover-color);
+  border-radius: 25px;
+}
+  
+  h4 {
+    padding: 0px;
+    border-radius: 25px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+  }
+
+  h4:hover {
+    padding: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    cursor: pointer;
+  }
+  
+  h5 {
+    padding: 0px;
+    border-radius: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  h5:hover {
+    background: var(--button-hover-color);
+    padding: 5px;
+    cursor: pointer;
+  }
