@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 async function createUser(req, res) {
+  console.log("Server: Creating account...");
   const { user, pwd } = req.body;
   const pwdSalt = await bcrypt.genSalt(10);
   const pwdHash = await bcrypt.hash(pwd, pwdSalt);

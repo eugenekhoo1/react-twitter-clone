@@ -11,7 +11,7 @@ require("dotenv").config();
 // });
 
 const pool = new Pool({
-  connectionString: process.env.INTERNAL_BASE_URL,
+  connectionString: process.env.EXTERNAL_BASE_URL,
 });
 
 module.exports = {

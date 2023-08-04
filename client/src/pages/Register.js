@@ -33,15 +33,12 @@ const Register = () => {
 
   useEffect(() => {
     const result = USER_REGEX.test(user);
-    console.log(`validUser: ${result}`);
-    console.log(user);
     setValidName(result);
   }, [user]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(pwd);
-    console.log(`validPwd: ${result}`);
-    console.log(pwd);
+
     setValidPwd(result);
     const match = pwd === matchPwd;
     setValidMatch(match);
@@ -60,8 +57,7 @@ const Register = () => {
       return;
     }
     try {
-      // Create in postgres table
-      console.log("Creating in Postgres...");
+      console.log("Client: Creating account...");
 
       const response = await axios.post(
         "/register",
