@@ -27,7 +27,6 @@ app.use(credentials);
 app.use(cors(corsOptions)); // ports 3000, 5000, dev server
 app.use(express.json()); // 'Content-type': 'application/json'
 app.use(cookieParser());
-app.use(upload.single("image"));
 
 ////////////
 // Routes //
