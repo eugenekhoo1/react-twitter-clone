@@ -10,7 +10,7 @@ require("dotenv").config();
 //   database: "twitter",
 // });
 
-const pool = newPool({
+const pool = new Pool({
   connectionString: process.env.INTERNAL_BASE_URL,
 });
 
