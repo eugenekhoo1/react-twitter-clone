@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
 const { PORT } = require("./config/server");
 const corsOptions = require("./config/corsOption");
 const registerRoutes = require("./routes/registerRoutes");
@@ -17,7 +16,6 @@ const credentials = require("./middleware/credentials");
 const { logger } = require("./middleware/logEvents");
 const verifyJWT = require("./middleware/verifyJWT");
 const cookieParser = require("cookie-parser");
-const upload = require("./middleware/multer");
 
 const app = express();
 
@@ -40,11 +38,6 @@ app.use("/login", loginRoutes);
 app.use("/logout", logoutRoutes);
 app.use("/refresh", refreshTokenRoutes);
 app.use("/view", viewRoutes);
-
-app.post("/single", (req, res) => {
-  console.log(req.file);
-  res.send("Single file upload success");
-});
 
 //////////////////////
 // Protected Routes //
