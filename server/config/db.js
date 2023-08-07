@@ -2,12 +2,19 @@ const Pool = require("pg").Pool;
 require("dotenv").config();
 
 const pool = new Pool({
-  user: process.env.DB_USERNAME || "postgres",
-  host: process.env.DB_HOSTNAME || "localhost",
-  port: process.env.DB_PORT || 5000,
-  database: process.env.DB || "twitter",
-  password: process.env.DB_PASSWORD || "",
+  user: process.env.DB_USERNAME,
+  host: process.env.DB_HOSTNAME,
+  port: process.env.DB_PORT,
+  database: process.env.DB,
+  password: process.env.DB_PASSWORD,
 });
+
+// const pool = new Pool({
+//   user: "postgres",
+//   host: "localhost",
+//   port: 5000,
+//   database: "twitter",
+// })
 
 module.exports = {
   async query(text, params, callback) {
