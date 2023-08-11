@@ -57,18 +57,24 @@ async function replyTweet(req, res) {
 }
 
 async function deleteTweet(req, res) {
-  const { id } = req.body;
+  const { user, tid } = req.body;
 
   try {
-    const checkTweet = await query("SELECT * FROM tweets WHERE id=$1", [id]);
+    const checkTweet = await query("SELECT * FROM tweets WHERE tid=$1", [tid]);
+
+    // check tweet exists
     if (checkTweet.rowCount < 1) {
       return res.status(404).json({ error: "Tweet not found" });
     }
 
-    const deleteTweet = await query(
-      "UPDATE tweets SET deleted=true WHERE id=$1",
-      [id]
-    );
+    // check user matches author
+    if (checkTweet.rows[0].author !== user) {
+      return res
+        .status(401)
+        .json({ error: "Unauthorized: User does not match" });
+    }
+
+    const deleteTweet = await query("DELETE FROM tweets WHERE tid=$1", [tid]);
 
     return res.status(200).json({ message: "Tweet deleted!" });
   } catch (err) {
@@ -77,16 +83,26 @@ async function deleteTweet(req, res) {
 }
 
 async function editTweet(req, res) {
-  const { id, newText } = req.body;
+  const { user, tid, newText } = req.body;
 
   try {
+    const checkTweet = await query("SELECT * FROM tweets WHERE tid=$1", [tid]);
+
+    // check tweet exists
     if (checkTweet.rowCount < 1) {
       return res.status(404).json({ error: "Tweet not found" });
     }
 
-    const editTweet = await query("UPDATE tweets SET text=$1 WHERE id=$2", [
+    // check user matches author
+    if (checkTweet.rows[0].author !== user) {
+      return res
+        .status(401)
+        .json({ error: "Unauthorized: User does not match" });
+    }
+
+    const editTweet = await query("UPDATE tweets SET text=$1 WHERE tid=$2", [
       newText,
-      id,
+      tid,
     ]);
 
     return res.status(200).json({ message: "Tweet updated!" });

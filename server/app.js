@@ -11,6 +11,7 @@ const tweetRoutes = require("./routes/api/tweetRoutes");
 const interactionRoutes = require("./routes/api/interactionRoutes");
 const viewRoutes = require("./routes/api/viewRoutes");
 const profileRoutes = require("./routes/api/profileRoutes");
+const searchRoutes = require("./routes/api/searchRoutes");
 const credentials = require("./middleware/credentials");
 
 const { logger } = require("./middleware/logEvents");
@@ -37,6 +38,7 @@ app.use("/login", loginRoutes);
 app.use("/logout", logoutRoutes);
 app.use("/refresh", refreshTokenRoutes);
 app.use("/view", viewRoutes);
+app.use("/search", searchRoutes);
 
 //////////////////////
 // Protected Routes //

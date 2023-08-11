@@ -4,7 +4,6 @@ import PersistLogin from "./components/PersistLogin";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
-import Feed from "./pages/Feed";
 import Landing from "./pages/Landing";
 import Profile from "./pages/Profile";
 import User from "./pages/User";
@@ -27,7 +26,7 @@ function App() {
       </Routes>
 
       <Routes>
-        <Route path="/feed" element={<Feed />} />
+        <Route path="/feed" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>

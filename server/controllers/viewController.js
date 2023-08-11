@@ -50,13 +50,36 @@ async function retweetedTweets(req, res) {
 }
 
 async function userTweets(req, res) {
+  // User's tweets + retweets
   const { user } = req.params;
 
   try {
-    const userTweets = await query(
-      "SELECT * FROM tweets WHERE author=$1 ORDER BY tid DESC",
-      [user]
-    );
+    SQL_QUERY = `
+      SELECT 
+        t1.tid as tid,
+        t2.author as author,
+        t2.text as text,
+        t2.replyto as replyto,
+        t2.likes as likes,
+        t2.retweets as retweets,
+        t2.replies as replies,
+        t2.created_at as created_at,
+        t2.tid as retweetfrom,
+        true as retweeted
+      FROM tweets t1
+      INNER JOIN tweets t2
+      ON t1.retweetfrom = t2.tid
+      WHERE t1.author=$1 
+      AND t1.retweetfrom is not null
+      UNION
+      SELECT
+        *,
+        false as retweeted
+      FROM tweets
+      WHERE author=$1 AND retweetfrom is null
+      ORDER BY tid DESC;
+`;
+    const userTweets = await query(SQL_QUERY, [user]);
 
     return res.status(200).send(userTweets.rows);
   } catch (err) {

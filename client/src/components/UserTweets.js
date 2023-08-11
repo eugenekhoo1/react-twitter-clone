@@ -9,6 +9,7 @@ import UnlikeTweet from "./UnlikeTweet";
 import Retweet from "./Retweet";
 import RemoveRetweet from "./RemoveRetweet";
 import Reply from "./Reply";
+import MoreModal from "./MoreModal";
 
 const UserTweets = ({ user, id, viewUser }) => {
   const [tweets, setTweets] = useState([]);
@@ -92,6 +93,14 @@ const UserTweets = ({ user, id, viewUser }) => {
       {tweets.map((tweet) => (
         <Link to={`/tid/${tweet.tid}`}>
           <div className="tweet-container" id={tweet.tid}>
+            {tweet.retweetfrom ? (
+              <p className="retweet">
+                <i className="fa-solid fa-retweet" />{" "}
+                <span className="retweet-name">
+                  <Link to={`/user/${user}`}>{user}</Link> Retweeted
+                </span>
+              </p>
+            ) : null}
             <div className="tweet-header">
               <img
                 src={profile}
@@ -103,11 +112,19 @@ const UserTweets = ({ user, id, viewUser }) => {
               </Link>
               <p className="date-time">
                 {formatDistance(
-                  subDays(new Date(tweet.createdAt), 0),
+                  subDays(new Date(tweet.created_at), 0),
                   new Date()
                 )}{" "}
                 ago
               </p>
+              <div className="more-modal">
+                <MoreModal
+                  tid={tweet.tid}
+                  user={user}
+                  tweetAuthor={tweet.author}
+                  retweeted={tweet.retweeted}
+                />
+              </div>
             </div>
             <p className="text">{tweet.text}</p>
             <div className="interactions">
@@ -118,7 +135,7 @@ const UserTweets = ({ user, id, viewUser }) => {
                   tid={tweet.tid}
                   replyUser={tweet.author}
                   replyText={tweet.text}
-                  replyCreatedAt={tweet.createdAt}
+                  replyCreatedAt={tweet.created_at}
                 />{" "}
                 {tweet.replies.length}
               </span>

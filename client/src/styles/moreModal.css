@@ -1,0 +1,30 @@
+.button-more {
+    background-color: rgba(255, 255, 255, 0);
+    color: black;
+}
+
+.container-more {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.container-more i {
+    margin-top: 3.5px;
+}
+
+.container-more span {
+    margin-left: 10px;
+    font-weight: 600;
+    padding: 5px;
+}
+
+.container-row-more {
+    padding: 5px;
+}
+
+.container-row-more:hover {
+    background-color: rgba(131, 128, 128, 0.206);
+	transition: 0.25s;
+    cursor: pointer;
+}

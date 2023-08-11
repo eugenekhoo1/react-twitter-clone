@@ -14,20 +14,33 @@ import RemoveRetweet from "./RemoveRetweet";
 import Reply from "./Reply";
 import LikeTweet from "./LikeTweet";
 import UnlikeTweet from "./UnlikeTweet";
+import MoreModal from "./MoreModal";
 
 const HomeFeed = ({ user, id }) => {
   const axiosPrivate = useAxiosPrivate();
   const [tweets, setTweets] = useState([]);
+  const [displayTweets, setDisplayTweets] = useState([]);
   const [likedTweets, setLikedTweets] = useState([]);
   const [retweetedTweets, setRetweetedTweets] = useState([]);
 
   useEffect(() => {
-    const getHomeFeed = async () => {
+    const getTweets = async () => {
       const response = await axiosPrivate.post(
         "/home",
         JSON.stringify({ user })
       );
       setTweets(response.data);
+    };
+
+    // If retweeted, only show original tweet with retweet header
+    // WHAT IF MULTIPLE RETWEETS FOUND? Use RETWEET array?
+    const getDisplayTweets = async () => {
+      const filteredTweets = tweets.filter((tweet_tid) =>
+        tweets.every(
+          (tweet_retweetfrom) => tweet_tid.tid !== tweet_retweetfrom.retweetfrom
+        )
+      );
+      setDisplayTweets(filteredTweets);
     };
 
     const getLikedTweets = async () => {
@@ -40,10 +53,11 @@ const HomeFeed = ({ user, id }) => {
       setRetweetedTweets(response.data);
     };
 
-    getHomeFeed();
+    getTweets();
     getLikedTweets();
     getRetweetedTweets();
-  }, []);
+    getDisplayTweets();
+  }, [tweets]);
 
   const handleLikeAction = async (tweet, liked) => {
     if (liked) {
@@ -102,7 +116,7 @@ const HomeFeed = ({ user, id }) => {
 
   return (
     <div>
-      {tweets.map((tweet) =>
+      {displayTweets.map((tweet) =>
         !tweet.retweetfrom ? (
           <Link to={`/tid/${tweet.tid}`}>
             <div className="tweet-container" id={tweet.tid}>
@@ -117,11 +131,18 @@ const HomeFeed = ({ user, id }) => {
                 </Link>
                 <p className="date-time">
                   {formatDistance(
-                    subDays(new Date(tweet.createdAt), 0),
+                    subDays(new Date(tweet.created_at), 0),
                     new Date()
                   )}{" "}
                   ago
                 </p>
+                <div className="more-modal">
+                  <MoreModal
+                    tid={tweet.tid}
+                    user={user}
+                    tweetAuthor={tweet.author}
+                  />
+                </div>
               </div>
               <p className="text">{tweet.text}</p>
               <div className="interactions">
@@ -132,7 +153,7 @@ const HomeFeed = ({ user, id }) => {
                     tid={tweet.tid}
                     replyUser={tweet.author}
                     replyText={tweet.text}
-                    replyCreatedAt={tweet.createdAt}
+                    replyCreatedAt={tweet.created_at}
                   />{" "}
                   {tweet.replies.length}
                 </span>
@@ -206,7 +227,7 @@ const HomeFeed = ({ user, id }) => {
                 </Link>
                 <p className="date-time">
                   {formatDistance(
-                    subDays(new Date(findRetweetedTweet(tweet).createdAt), 0),
+                    subDays(new Date(findRetweetedTweet(tweet).created_at), 0),
                     new Date()
                   )}{" "}
                   ago
@@ -221,7 +242,7 @@ const HomeFeed = ({ user, id }) => {
                     tid={findRetweetedTweet(tweet).tid}
                     replyUser={findRetweetedTweet(tweet).author}
                     replyText={findRetweetedTweet(tweet).text}
-                    replyCreatedAt={findRetweetedTweet(tweet).createdAt}
+                    replyCreatedAt={findRetweetedTweet(tweet).created_at}
                   />{" "}
                   {findRetweetedTweet(tweet).replies.length}
                 </span>

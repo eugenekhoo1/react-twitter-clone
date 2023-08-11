@@ -43,12 +43,12 @@ const SingleTweet = () => {
           const retweetResponse = await axios.get(
             `/view/tweet/${response.data[0].retweetfrom}`
           );
-          const dateObj = new Date(retweetResponse.data[0].createdAt);
+          const dateObj = new Date(retweetResponse.data[0].created_at);
           setTweet(retweetResponse.data[0]);
           setRetweetArray(retweetResponse.data[0].retweets);
           setReplyArray(retweetResponse.data[0].replies);
           setLikeArray(retweetResponse.data[0].likes);
-          setDatetime(retweetResponse.data[0].createdAt);
+          setDatetime(retweetResponse.data[0].created_at);
           setDate(
             new Intl.DateTimeFormat("en-US", {
               year: "numeric",
@@ -65,12 +65,12 @@ const SingleTweet = () => {
           );
           setIsRetweeted(true);
         } else {
-          const dateObj = new Date(response.data[0].createdAt);
+          const dateObj = new Date(response.data[0].created_at);
           setTweet(response.data[0]);
           setRetweetArray(response.data[0].retweets);
           setReplyArray(response.data[0].replies);
           setLikeArray(response.data[0].likes);
-          setDatetime(response.data[0].createdAt);
+          setDatetime(response.data[0].created_at);
           setDate(
             new Intl.DateTimeFormat("en-US", {
               year: "numeric",
@@ -279,7 +279,7 @@ const SingleTweet = () => {
               <button
                 type="submit"
                 className="single-tweet-reply-button"
-                disabloed={replyChar == 0 || replyChar > 140 ? true : false}
+                disabled={replyChar == 0 || replyChar > 140 ? true : false}
               >
                 Reply
               </button>

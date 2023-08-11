@@ -9,6 +9,7 @@ import UserTweets from "../components/UserTweets";
 import profile from "../styles/assets/images/profile.png";
 import FollowUser from "../components/FollowUser";
 import UnfollowUser from "../components/UnfollowUser";
+import SearchBar from "../components/SearchBar";
 
 const User = () => {
   /**
@@ -100,6 +101,9 @@ const User = () => {
               </div>
             </div>
             <UserTweets user={auth?.user} id={auth?.id} viewUser={user} />
+          </div>
+          <div className="right">
+            <SearchBar />
           </div>
         </div>
       )}

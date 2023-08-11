@@ -4,6 +4,7 @@ import HomeFeed from "../components/HomeFeed";
 import useAuth from "../hooks/useAuth";
 import "../styles/home.css";
 import "../styles/primary.css";
+import SearchBar from "../components/SearchBar";
 
 const Home = () => {
   const { auth } = useAuth();
@@ -22,7 +23,9 @@ const Home = () => {
           <HomePageTweet user={user} />
           <HomeFeed user={user} id={id} />
         </div>
-        <div className="right"></div>
+        <div className="right">
+          <SearchBar />
+        </div>
       </div>
     </>
   );

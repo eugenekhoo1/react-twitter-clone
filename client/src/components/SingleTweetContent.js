@@ -5,7 +5,7 @@ import "../styles/singleTweet.css";
 import profile from "../styles/assets/images/profile.png";
 
 const SingleTweetContent = ({ user, tweet, isRetweeted }) => {
-  const dateObj = new Date(tweet.createdAt);
+  const dateObj = new Date(tweet.created_at);
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "short",

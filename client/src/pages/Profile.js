@@ -8,6 +8,7 @@ import useAuth from "../hooks/useAuth";
 import axios from "../api/axios";
 import UserTweets from "../components/UserTweets";
 import profile from "../styles/assets/images/profile.png";
+import SearchBar from "../components/SearchBar";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -75,7 +76,7 @@ const Profile = () => {
               <p>{displayName}</p>
             </h3>
             <p>@{user}</p>
-            {auth ? (
+            {website ? (
               <p>
                 <i className="fas fa-link"> </i>{" "}
                 <Link to={{ pathname: `http://${website}` }}>{website}</Link>
@@ -88,7 +89,9 @@ const Profile = () => {
           </div>
           <UserTweets user={user} id={id} viewUser={user} />
         </div>
-        <div className="right"></div>
+        <div className="right">
+          <SearchBar />
+        </div>
       </div>
     </>
   );
