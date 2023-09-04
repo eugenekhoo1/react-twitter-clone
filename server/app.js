@@ -53,6 +53,6 @@ app.use("/post", tweetRoutes);
 app.use("/profile", profileRoutes);
 app.use("/", interactionRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}...`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Listening on port ${PORT}...`);
+// });
