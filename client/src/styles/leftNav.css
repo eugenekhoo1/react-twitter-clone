@@ -1,10 +1,11 @@
 .left-nav {
-	position:fixed;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
 	width: auto;
 	max-width: 250px;
+	position: sticky;
+	top: 20px;
 	@media (max-width: 1200px) {
 	}
 }
@@ -15,6 +16,10 @@
 	padding-right: 0px;
 	width: auto;
 	max-width: 250px;
+	margin-right:25px;
+	@media (max-width: 1200px) {
+		margin: 0px;
+	}
 }
 
 .logo {

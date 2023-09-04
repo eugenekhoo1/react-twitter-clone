@@ -8,6 +8,7 @@ import Landing from "./pages/Landing";
 import Profile from "./pages/Profile";
 import User from "./pages/User";
 import SingleTweet from "./pages/SingleTweet";
+import Feed from "./pages/Feed";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
       </Routes>
 
       <Routes>
-        <Route path="/feed" element={<Home />} />
+        <Route path="/feed" element={<Feed />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>

@@ -1,13 +1,6 @@
-/**
- * Home page tweets to include following + own tweets
- */
-
-import { useEffect, useState } from "react";
 import { formatDistance, subDays } from "date-fns";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import axios from "../api/axios";
 import { Link } from "react-router-dom";
-import profile from "../styles/assets/images/profile.png";
+import defaultProfile from "../styles/assets/images/default.png";
 import "../styles/tweetBox.css";
 import Retweet from "./Retweet";
 import RemoveRetweet from "./RemoveRetweet";
@@ -16,116 +9,50 @@ import LikeTweet from "./LikeTweet";
 import UnlikeTweet from "./UnlikeTweet";
 import MoreModal from "./MoreModal";
 
-const HomeFeed = ({ user, id }) => {
-  const axiosPrivate = useAxiosPrivate();
-  const [tweets, setTweets] = useState([]);
-  const [displayTweets, setDisplayTweets] = useState([]);
-  const [likedTweets, setLikedTweets] = useState([]);
-  const [retweetedTweets, setRetweetedTweets] = useState([]);
-
-  useEffect(() => {
-    const getTweets = async () => {
-      const response = await axiosPrivate.post(
-        "/home",
-        JSON.stringify({ user })
-      );
-      setTweets(response.data);
-    };
-
-    // If retweeted, only show original tweet with retweet header
-    // WHAT IF MULTIPLE RETWEETS FOUND? Use RETWEET array?
-    const getDisplayTweets = async () => {
-      const filteredTweets = tweets.filter((tweet_tid) =>
-        tweets.every(
-          (tweet_retweetfrom) => tweet_tid.tid !== tweet_retweetfrom.retweetfrom
-        )
-      );
-      setDisplayTweets(filteredTweets);
-    };
-
-    const getLikedTweets = async () => {
-      const response = await axios.get(`/view/likedtweets/${user}`);
-      setLikedTweets(response.data);
-    };
-
-    const getRetweetedTweets = async () => {
-      const response = await axios.get(`/view/retweetedtweets/${user}`);
-      setRetweetedTweets(response.data);
-    };
-
-    getTweets();
-    getLikedTweets();
-    getRetweetedTweets();
-    getDisplayTweets();
-  }, [tweets]);
-
-  const handleLikeAction = async (tweet, liked) => {
-    if (liked) {
-      // Update likes count in likedTweets
-      const targetTweet = tweet;
-      targetTweet.likes.push(id);
-      setLikedTweets((prev) => [...prev, targetTweet]);
-
-      // Update likes count in tweets
-      const newTweetsArray = tweets.map((item) =>
-        item.tid === tweet.tid ? targetTweet : item
-      );
-      setTweets(newTweetsArray);
-    } else {
-      setLikedTweets((prev) => prev.filter((item) => item.tid !== tweet.tid));
-      const targetTweet = tweet;
-      targetTweet.likes = targetTweet.likes.filter((item) => item !== id);
-      const newTweetsArray = tweets.map((item) =>
-        item.tid === tweet.tid ? targetTweet : item
-      );
-      setTweets(newTweetsArray);
-    }
-  };
-
-  const handleRetweetAction = async (tweet, retweeted) => {
-    if (retweeted) {
-      // Update user's retweets array (retweets: tid)
-      const targetTweet = tweet;
-      targetTweet.retweets.push(id);
-      setRetweetedTweets((prev) => [...prev, targetTweet]);
-
-      // Update tweet's retweets array (retweets: userid)
-      const newTweetsArray = tweets.map((item) =>
-        item.tid === tweet.tid ? targetTweet : item
-      );
-      setTweets(newTweetsArray);
-    } else {
-      // Update user's retweeted array (retweets: tid)
-      setRetweetedTweets((prev) =>
-        prev.filter((item) => item.tid !== tweet.tid)
-      );
-
-      // Update tweet's retweeted array (retweets: userid)
-      const targetTweet = tweet;
-      targetTweet.retweets = targetTweet.retweets.filter((item) => item !== id);
-      const newTweetsArray = tweets.map((item) =>
-        item.tid === tweet.tid ? targetTweet : item
-      );
-      setTweets(newTweetsArray);
-    }
-  };
-
+const HomeFeed = ({
+  user,
+  id,
+  tweets,
+  displayTweets,
+  likedTweets,
+  retweetedTweets,
+  onLike,
+  onRetweet,
+}) => {
   const findRetweetedTweet = (tweet) => {
     return tweets.find((item) => item.tid === tweet.retweetfrom);
   };
 
   return (
     <div>
+      {console.log(displayTweets)}
       {displayTweets.map((tweet) =>
         !tweet.retweetfrom ? (
           <Link to={`/tid/${tweet.tid}`}>
             <div className="tweet-container" id={tweet.tid}>
               <div className="tweet-header">
-                <img
-                  src={profile}
-                  style={{ width: "40px", borderRadius: "50%" }}
-                  alt="avatar"
-                />
+                {tweet.avatar ? (
+                  <img
+                    src={tweet.avatar}
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                    }}
+                    alt="avatar"
+                  />
+                ) : (
+                  <img
+                    src={defaultProfile}
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                    }}
+                    alt="avatar"
+                  />
+                )}
+
                 <Link to={`/user/${tweet.author}`}>
                   <h4 className="name">{tweet.author}</h4>
                 </Link>
@@ -166,7 +93,7 @@ const HomeFeed = ({ user, id }) => {
                       id={id}
                       tid={tweet.tid}
                       text={tweet.text}
-                      onRemoveRetweet={() => handleRetweetAction(tweet, false)}
+                      onRemoveRetweet={() => onRetweet(tweet, false)}
                     />
                     {tweet.retweets.length}
                   </span>
@@ -177,7 +104,7 @@ const HomeFeed = ({ user, id }) => {
                       id={id}
                       tid={tweet.tid}
                       text={tweet.text}
-                      onRetweet={() => handleRetweetAction(tweet, true)}
+                      onRetweet={() => onRetweet(tweet, true)}
                     />
                     {tweet.retweets.length}
                   </span>
@@ -189,7 +116,7 @@ const HomeFeed = ({ user, id }) => {
                     <UnlikeTweet
                       user={user}
                       tid={tweet.tid}
-                      onUnlike={() => handleLikeAction(tweet, false)}
+                      onUnlike={() => onLike(tweet, false)}
                     />
                     {tweet.likes.length}
                   </span>
@@ -198,7 +125,7 @@ const HomeFeed = ({ user, id }) => {
                     <LikeTweet
                       user={user}
                       tid={tweet.tid}
-                      onLike={() => handleLikeAction(tweet, true)}
+                      onLike={() => onLike(tweet, true)}
                     />
                     {tweet.likes.length}
                   </span>
@@ -217,11 +144,20 @@ const HomeFeed = ({ user, id }) => {
                 </span>
               </p>
               <div className="tweet-header">
-                <img
-                  src={profile}
-                  style={{ width: "40px", borderRadius: "50%" }}
-                  alt="avatar"
-                />
+                {tweet.avatar ? (
+                  <img
+                    src={tweet.avatar}
+                    style={{ width: "40px", borderRadius: "50%" }}
+                    alt="avatar"
+                  />
+                ) : (
+                  <img
+                    src={defaultProfile}
+                    style={{ width: "40px", borderRadius: "50%" }}
+                    alt="avatar"
+                  />
+                )}
+
                 <Link to={`/user/${findRetweetedTweet(tweet).author}`}>
                   <h4 className="name">{findRetweetedTweet(tweet).author}</h4>
                 </Link>
@@ -257,7 +193,7 @@ const HomeFeed = ({ user, id }) => {
                       tid={findRetweetedTweet(tweet).tid}
                       text={findRetweetedTweet(tweet).text}
                       onRemoveRetweet={() =>
-                        handleRetweetAction(findRetweetedTweet(tweet), false)
+                        onRetweet(findRetweetedTweet(tweet), false)
                       }
                     />
                     {findRetweetedTweet(tweet).retweets.length}
@@ -270,7 +206,7 @@ const HomeFeed = ({ user, id }) => {
                       tid={findRetweetedTweet(tweet).tid}
                       text={findRetweetedTweet(tweet).text}
                       onRetweet={() =>
-                        handleRetweetAction(findRetweetedTweet(tweet), true)
+                        onRetweet(findRetweetedTweet(tweet), true)
                       }
                     />
                     {findRetweetedTweet(tweet).retweets.length}
@@ -284,9 +220,7 @@ const HomeFeed = ({ user, id }) => {
                     <UnlikeTweet
                       user={user}
                       tid={findRetweetedTweet(tweet).tid}
-                      onUnlike={() =>
-                        handleLikeAction(findRetweetedTweet(tweet), false)
-                      }
+                      onUnlike={() => onLike(findRetweetedTweet(tweet), false)}
                     />
                     {findRetweetedTweet(tweet).likes.length}
                   </span>
@@ -295,9 +229,7 @@ const HomeFeed = ({ user, id }) => {
                     <LikeTweet
                       user={user}
                       tid={findRetweetedTweet(tweet).tid}
-                      onLike={() =>
-                        handleLikeAction(findRetweetedTweet(tweet), true)
-                      }
+                      onLike={() => onLike(findRetweetedTweet(tweet), true)}
                     />
                     {findRetweetedTweet(tweet).likes.length}
                   </span>

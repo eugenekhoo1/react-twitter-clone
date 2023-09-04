@@ -2,7 +2,7 @@ import { formatDistance, subDays } from "date-fns";
 import axios from "../api/axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import profile from "../styles/assets/images/profile.png";
+import defaultProfile from "../styles/assets/images/default.png";
 import "../styles/tweetBox.css";
 import LikeTweet from "./LikeTweet";
 import UnlikeTweet from "./UnlikeTweet";
@@ -102,11 +102,20 @@ const UserTweets = ({ user, id, viewUser }) => {
               </p>
             ) : null}
             <div className="tweet-header">
-              <img
-                src={profile}
-                style={{ width: "40px", borderRadius: "50%" }}
-                alt="avatar"
-              />
+              {tweet.avatar ? (
+                <img
+                  src={tweet.avatar}
+                  style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+                  alt="avatar"
+                />
+              ) : (
+                <img
+                  src={defaultProfile}
+                  style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+                  alt="avatar"
+                />
+              )}
+
               <Link to={`/user/${tweet.author}`}>
                 <h4 className="name">{tweet.author}</h4>
               </Link>

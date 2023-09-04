@@ -1,7 +1,5 @@
 .env
 node_modules
-middleware/multer.js
-controllers/imageController.js
 images
 logs
 database.sql

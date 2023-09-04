@@ -65,17 +65,23 @@ async function userTweets(req, res) {
         t2.replies as replies,
         t2.created_at as created_at,
         t2.tid as retweetfrom,
-        true as retweeted
+        true as retweeted,
+        u.avatar as avatar
       FROM tweets t1
       INNER JOIN tweets t2
       ON t1.retweetfrom = t2.tid
+      LEFT JOIN users u
+      ON t2.author = u.username
       WHERE t1.author=$1 
       AND t1.retweetfrom is not null
       UNION
       SELECT
-        *,
-        false as retweeted
-      FROM tweets
+        t.*,
+        false as retweeted,
+        u.avatar as avatar
+      FROM tweets t
+      LEFT JOIN users u
+      ON t.author = u.username
       WHERE author=$1 AND retweetfrom is null
       ORDER BY tid DESC;
 `;

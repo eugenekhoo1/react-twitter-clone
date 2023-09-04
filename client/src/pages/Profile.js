@@ -7,7 +7,7 @@ import "../styles/profile.css";
 import useAuth from "../hooks/useAuth";
 import axios from "../api/axios";
 import UserTweets from "../components/UserTweets";
-import profile from "../styles/assets/images/profile.png";
+import defaultProfile from "../styles/assets/images/default.png";
 import SearchBar from "../components/SearchBar";
 
 const Profile = () => {
@@ -20,6 +20,7 @@ const Profile = () => {
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState("");
   const [website, setWebsite] = useState("");
+  const [avatar, setAvatar] = useState(null);
   const [followerCount, setFollowerCount] = useState(0);
   const [followingCount, setFollowingCount] = useState(0);
 
@@ -27,17 +28,14 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        console.log(`Profile user: ${user}`);
         const response = await axios.get(`/view/profile/${user}`);
-        console.log(
-          `fetchUserProfile response: ${response.data[0].display_name}`
-        );
         setDisplayName(response.data[0].display_name);
         setBio(response.data[0].bio);
         setLocation(response.data[0].location);
         setWebsite(response.data[0].website);
         setFollowerCount(response.data[0].follower.length);
         setFollowingCount(response.data[0].following.length);
+        setAvatar(response.data[0].avatar);
       } catch (err) {
         console.error(`Profile: ${err}`);
       }
@@ -62,11 +60,27 @@ const Profile = () => {
               </span>
             </div>
             <div className="avatar">
-              <img
-                src={profile}
-                style={{ width: "150px", borderRadius: "50%" }}
-                alt="avatar"
-              />
+              {avatar ? (
+                <img
+                  src={avatar}
+                  style={{
+                    width: "150px",
+                    height: "150px",
+                    borderRadius: "50%",
+                  }}
+                  alt="avatar"
+                />
+              ) : (
+                <img
+                  src={defaultProfile}
+                  style={{
+                    width: "150px",
+                    height: "150px",
+                    borderRadius: "50%",
+                  }}
+                  alt="avatar"
+                />
+              )}
             </div>
             <div className="make-profile">
               <EditProfile user={user} />
@@ -79,7 +93,9 @@ const Profile = () => {
             {website ? (
               <p>
                 <i className="fas fa-link"> </i>{" "}
-                <Link to={{ pathname: `http://${website}` }}>{website}</Link>
+                <a href={`http://${website}`} target="_blank">
+                  {website}
+                </a>
               </p>
             ) : null}
             <div className="followers">

@@ -1,7 +1,8 @@
 .primary {
 	display: flex;
-	margin-right: 10%;
-	margin-left: 10%;
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
 	margin-bottom: 0px;
 	justify-content: center;
 	@media (max-width: 1200px) {
@@ -20,7 +21,6 @@
 .left {
     padding-right: 20px;
 	margin-top: 20px;
-	width: 20%;
 	max-width: 250px;
 	margin-left: auto;
 
@@ -33,16 +33,12 @@
 	padding-right: 0px;
 	padding-left: 20px;
 	margin-top: 20px;
-	width: 20%;
 	margin-right: auto;
 	@media (max-width: 670px) {
 		display: none;
 	}
 }
-.right div {
-	position: sticky;
-	top: 0;
-}
+
 
 .drop-down {
 	position: relative;

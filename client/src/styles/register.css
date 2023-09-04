@@ -60,3 +60,7 @@
     width: 20px;
     margin: 0 5px 2px 2px;
   }
+
+  .registerLogo {
+    align-items: center;
+  }

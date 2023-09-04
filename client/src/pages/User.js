@@ -34,9 +34,6 @@ const User = () => {
     const fetchUserProfile = async () => {
       try {
         const response = await axios.get(`/view/profile/${user}`);
-        console.log(
-          `fetchUserProfile response: ${response.data[0].display_name}`
-        );
         setDisplayName(response.data[0].display_name);
         setBio(response.data[0].bio);
         setLocation(response.data[0].location);

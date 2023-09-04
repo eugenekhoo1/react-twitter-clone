@@ -1,3 +1,16 @@
 # Twitter clone built using PERN stack
 
-Client and server side code can be found in respective folders.
+<b>Client (libraries)</b>
+
+- React
+- axios
+
+<b>Server (libraries)</b>
+
+- bcrypt
+- cors
+- express
+- firebase
+- jsonwebtoken
+- multer
+- pg

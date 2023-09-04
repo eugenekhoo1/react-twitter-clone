@@ -1,0 +1,59 @@
+.avatar-upload-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.avatar-upload-container input {
+  display: none;
+}
+
+.avatar-upload-container img {
+  position: absolute;
+  object-fit: cover;
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.avatar-label {
+  cursor: pointer;
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+  background: transparent;
+  z-index: 1;
+}
+
+.avatar-label:hover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  color: white;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 50%;
+  margin-bottom: 0;
+}
+
+.avatar-label span {
+  display: inline-flex;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.avatar-upload {
+  cursor: pointer;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+}

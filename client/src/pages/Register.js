@@ -105,13 +105,16 @@ const Register = () => {
             {errMsg}
           </p>
           <div className="container">
-            <img
-              src={logo}
-              alt="logo"
-              style={{ width: "50px", height: "50px" }}
-              className="logo"
-            />
-            <h3>Sign up</h3>
+            <h3>
+              <img
+                src={logo}
+                alt="logo"
+                style={{ width: "50px", height: "50px" }}
+                className="registerLogo"
+              />
+              <br />
+              Sign up
+            </h3>
             <form onSubmit={handleSubmit}>
               <label htmlFor="username" className="form-label">
                 Username:

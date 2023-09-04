@@ -5,8 +5,10 @@ async function homeFeed(req, res) {
   console.log(user);
 
   const SQL_QUERY = `
-    SELECT * 
-    FROM tweets
+    SELECT t.*, u.avatar 
+    FROM tweets t
+    LEFT JOIN users u
+    ON t.author = u.username
     WHERE author IN (  
         SELECT username
         FROM users

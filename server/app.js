@@ -12,10 +12,12 @@ const interactionRoutes = require("./routes/api/interactionRoutes");
 const viewRoutes = require("./routes/api/viewRoutes");
 const profileRoutes = require("./routes/api/profileRoutes");
 const searchRoutes = require("./routes/api/searchRoutes");
+const imageRoutes = require("./routes/api/imageRoutes");
 const credentials = require("./middleware/credentials");
 
 const { logger } = require("./middleware/logEvents");
 const verifyJWT = require("./middleware/verifyJWT");
+const upload = require("./middleware/multer");
 const cookieParser = require("cookie-parser");
 
 const app = express();
@@ -39,6 +41,7 @@ app.use("/logout", logoutRoutes);
 app.use("/refresh", refreshTokenRoutes);
 app.use("/view", viewRoutes);
 app.use("/search", searchRoutes);
+app.use("/upload", upload.single("avatar"), imageRoutes);
 
 //////////////////////
 // Protected Routes //
