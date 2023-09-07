@@ -13,7 +13,7 @@ import UnlikeTweet from "../components/UnlikeTweet";
 import Retweet from "../components/Retweet";
 import RemoveRetweet from "../components/RemoveRetweet";
 import Reply from "../components/Reply";
-import profile from "../styles/assets/images/profile.png";
+import defaultProfile from "../styles/assets/images/default.png";
 
 const SingleTweet = () => {
   const navigate = useNavigate();
@@ -167,7 +167,7 @@ const SingleTweet = () => {
             ) : null}
             <div className="single-tweet-nameplate">
               <img
-                src={profile}
+                src={defaultProfile}
                 style={{ width: "40px", borderRadius: "50%" }}
                 alt="avatar"
               />
@@ -260,7 +260,7 @@ const SingleTweet = () => {
               className="single-tweet-reply-container"
             >
               <img
-                src={profile}
+                src={defaultProfile}
                 style={{ width: "40px", height: "40px", borderRadius: "50%" }}
                 alt="avatar"
               />

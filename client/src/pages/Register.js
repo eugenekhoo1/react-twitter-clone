@@ -157,7 +157,7 @@ const Register = () => {
                 </span>
               </label>
               <input
-                class="form"
+                className="form"
                 type="password"
                 id="password"
                 onChange={(e) => setPwd(e.target.value)}
@@ -191,7 +191,7 @@ const Register = () => {
                 </span>
               </label>
               <input
-                class="form"
+                className="form"
                 type="password"
                 id="confirm_pwd"
                 onChange={(e) => setMatchPwd(e.target.value)}

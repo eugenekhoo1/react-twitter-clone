@@ -5,7 +5,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { customStyles } from "../styles/CustomModalStyles";
 import "../styles/tweetModal.css";
 import "../styles/tweetButton.css";
-import profile from "../styles/assets/images/profile.png";
+import defaultProfile from "../styles/assets/images/default.png";
 
 const Tweet = () => {
   const [text, setText] = useState("");
@@ -78,7 +78,11 @@ const Tweet = () => {
         <div className="tweetModal">
           <form onSubmit={handleSubmit}>
             <div className="tweetModal__input">
-              <img src={profile} className="tweetModal__avatar" alt="avatar" />
+              <img
+                src={defaultProfile}
+                className="tweetModal__avatar"
+                alt="avatar"
+              />
               <label htmlFor="create" />
               <textarea
                 style={{ height: "120px" }}

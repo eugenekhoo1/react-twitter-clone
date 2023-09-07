@@ -6,7 +6,7 @@ import "../styles/profile.css";
 import useAuth from "../hooks/useAuth";
 import axios from "../api/axios";
 import UserTweets from "../components/UserTweets";
-import profile from "../styles/assets/images/profile.png";
+import defaultProfile from "../styles/assets/images/default.png";
 import FollowUser from "../components/FollowUser";
 import UnfollowUser from "../components/UnfollowUser";
 import SearchBar from "../components/SearchBar";
@@ -69,7 +69,7 @@ const User = () => {
               </div>
               <div className="avatar">
                 <img
-                  src={profile}
+                  src={defaultProfile}
                   style={{ width: "150px", borderRadius: "50%" }}
                   alt="avatar"
                 />

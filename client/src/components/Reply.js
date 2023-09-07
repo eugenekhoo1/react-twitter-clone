@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { customStyles } from "../styles/CustomModalStyles";
 import "../styles/tweetModal.css";
-import profile from "../styles/assets/images/profile.png";
+import defaultProfile from "../styles/assets/images/default.png";
 import { Link } from "react-router-dom";
 
 const Reply = ({
@@ -77,7 +77,11 @@ const Reply = ({
         </span>
         <div className="reply-container">
           <div className="reply-header">
-            <img src={profile} className="replyModal__avatar" alt="avatar" />
+            <img
+              src={defaultProfile}
+              className="replyModal__avatar"
+              alt="avatar"
+            />
             <Link to={`/user/${replyUser}`}>
               <h4 className="name">{replyUser}</h4>
             </Link>
@@ -91,7 +95,11 @@ const Reply = ({
         <div className="tweetModal">
           <form onSubmit={handleReply}>
             <div className="tweetModal__input">
-              <img src={profile} className="tweetModal__avatar" alt="avatar" />
+              <img
+                src={defaultProfile}
+                className="tweetModal__avatar"
+                alt="avatar"
+              />
               <label htmlFor="create" />
               <textarea
                 style={{ height: "120px" }}

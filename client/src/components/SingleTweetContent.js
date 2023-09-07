@@ -2,7 +2,7 @@ import { formatDistance, subDays } from "date-fns";
 import { Link } from "react-router-dom";
 import "../styles/tweetBox.css";
 import "../styles/singleTweet.css";
-import profile from "../styles/assets/images/profile.png";
+import defaultProfile from "../styles/assets/images/default.png";
 
 const SingleTweetContent = ({ user, tweet, isRetweeted }) => {
   const dateObj = new Date(tweet.created_at);
@@ -30,7 +30,7 @@ const SingleTweetContent = ({ user, tweet, isRetweeted }) => {
         ) : null}
         <div className="single-tweet-nameplate">
           <img
-            src={profile}
+            src={defaultProfile}
             style={{ width: "40px", borderRadius: "50%" }}
             alt="avatar"
           />

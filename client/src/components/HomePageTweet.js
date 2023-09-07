@@ -1,7 +1,7 @@
 import "../styles/tweet.css";
 import { useState } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import profile from "../styles/assets/images/profile.png";
+import defaultProfile from "../styles/assets/images/default.png";
 
 const HomePageTweet = ({ user }) => {
   const [char, setChar] = useState(0);
@@ -43,7 +43,7 @@ const HomePageTweet = ({ user }) => {
     <div className="tweetBox">
       <form onSubmit={handleSubmit}>
         <div className="tweetBox__input">
-          <img src={profile} className="tweetBox__avatar" alt="avatar" />
+          <img src={defaultProfile} className="tweetBox__avatar" alt="avatar" />
           <label htmlFor="create" />
           <textarea
             type="text"

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Modal from "react-modal";
 import "../styles/logout.css";
 import { logoutModalStyles } from "../styles/LogoutModal";
-import profile from "../styles/assets/images/profile.png";
+import defaultProfile from "../styles/assets/images/default.png";
 
 const Logout = ({ user }) => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const Logout = ({ user }) => {
       >
         <h4>
           <img
-            src={profile}
+            src={defaultProfile}
             style={{ width: "40px", borderRadius: "50%" }}
             alt="avatar"
           />

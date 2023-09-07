@@ -6,8 +6,8 @@ import "../styles/home.css";
 import "../styles/primary.css";
 import SearchBar from "../components/SearchBar";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { useEffect, useState } from "react";
 import axios from "../api/axios";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const { auth } = useAuth();
@@ -20,6 +20,7 @@ const Home = () => {
   const [displayTweets, setDisplayTweets] = useState([]);
   const [likedTweets, setLikedTweets] = useState([]);
   const [retweetedTweets, setRetweetedTweets] = useState([]);
+  const [profile, setProfile] = useState(null);
 
   useEffect(() => {
     const getTweets = async () => {
@@ -47,9 +48,15 @@ const Home = () => {
       setRetweetedTweets(response.data);
     };
 
+    const getProfile = async () => {
+      const response = await axios.get(`/view/profile/${user}`);
+      setProfile(response.data);
+    };
+
     getTweets();
     getLikedTweets();
     getRetweetedTweets();
+    getProfile();
   }, []);
 
   const handleLikeAction = async (tweet, liked) => {
@@ -105,6 +112,7 @@ const Home = () => {
 
   return (
     <>
+      {console.log(profile)}
       <div className="primary">
         <div className="left">
           <LeftNav user={user} />
